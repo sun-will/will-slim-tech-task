@@ -17,7 +17,7 @@ class ErrorHandler extends Error {
     }
 
     /** @inheritdoc */
-    public function __invoke(
+    public function invoke(
         ServerRequestInterface $request, 
         ResponseInterface $response, 
         \Exception $exception) {

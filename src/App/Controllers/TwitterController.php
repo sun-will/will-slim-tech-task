@@ -6,13 +6,22 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Services\TwitterService;
 use App\Exceptions\ErrorHandler;
+use Respect\Validation\Validator as v;
 
 class TwitterController {
 
+    /** @var \Conduit\Validation\Validator */
+    private $validator;
+    /** @var \App\Services\TwitterService */
     private $service;
+    /** @var \App\Exceptoins\ErrorHandler */
+    private $errorHandler;
 
-    public function __construct() {
+
+    public function __construct(\Slim\Container $container) {
         $this->service = new TwitterService();
+        $this->validator = $container->get('validator');
+        $this->errorHandler = $container->get('errorHandler');
     }
 
     public function getService(): TwitterService {
@@ -25,11 +34,20 @@ class TwitterController {
 
     public function show(Request $request, Response $response, array $args) {
         $userName = $args['name'];
+        $this->validator->validate($userName,
+            [
+                'name'   => v::notEmpty(),
+                'name'   => v::alnum(),
+                'name'   => v::NoWhitespace(),
+            ]);
+
+        if ($this->validator->failed()) {
+            return $response->withJson(['errors' => $this->validator->getErrors()], 422);
+        }
         $data = $this->service->fetchTweets($userName);
         $result = $this->_processTwitterData($data);
         if (empty($result)) {
-            $errorHandler = new ErrorHandler(true);
-            return $errorHandler->__invoke(
+            return $this->errorHandler->invoke(
                 $request,
                 $response,
                 new \Exception()

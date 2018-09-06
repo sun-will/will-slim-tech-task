@@ -22,3 +22,13 @@ $container['jwt'] = function ($c) {
     $jws_settings = $c->get('settings')['jwt'];
     return new \Slim\Middleware\JwtAuthentication($jws_settings);
 };
+
+// Request Validator
+$container['validator'] = function ($c) {
+    return new \App\Validation\Validator();
+};
+
+// Error Handler
+$container['errorHandler'] = function ($c) {
+    return new \App\Exceptions\ErrorHandler($c['settings']['displayErrorDetails']);
+};
