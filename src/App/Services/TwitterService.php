@@ -17,7 +17,7 @@ class TwitterService {
         );
     }
 
-    public function fetchTweets(string $username): array {
+    public function fetchTweets(string $username) {
         return $this->connection->get(
             "statuses/user_timeline", 
             ["screen_name" => $username]

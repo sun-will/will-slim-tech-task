@@ -38,7 +38,7 @@ class TwitterController {
         return $response->withJson(['tweet per hour' => $result]);
     }
 
-    private function _processTwitterData(array $data): array {
+    private function _processTwitterData($data): array {
         $result = array();
         foreach ($data as $value) {
             if (isset($value->created_at)) {
