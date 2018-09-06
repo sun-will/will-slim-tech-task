@@ -10,7 +10,7 @@ use Respect\Validation\Validator as v;
 
 class TwitterController {
 
-    /** @var \Conduit\Validation\Validator */
+    /** @var \App\Validation\Validator */
     private $validator;
     /** @var \App\Services\TwitterService */
     private $service;
@@ -32,6 +32,15 @@ class TwitterController {
         $this->service = $service;
     }
 
+    /**
+     * Show the Tweets per user
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     *
+     * @return wild
+     */
     public function show(Request $request, Response $response, array $args) {
         $userName = $args['name'];
         $this->validator->validate($userName,
@@ -56,6 +65,13 @@ class TwitterController {
         return $response->withJson(['tweet per hour' => $result]);
     }
 
+    /**
+     * Process the twitter data
+     *
+     * @param wild $data
+     *
+     * @return array $result
+     */
     private function _processTwitterData($data): array {
         $result = array();
         foreach ($data as $value) {

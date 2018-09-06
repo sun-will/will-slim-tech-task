@@ -20,7 +20,7 @@ class HomepageTest extends BaseTestCase {
      */
     public function testGetHelloWithName() {
         $name = getenv('APP_NAME');
-        $response = $this->runApp('GET', '/hello/'.$name);
+        $response = $this->runApp('GET', '/hello/'.$name.'/');
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains('Hello, '.$name, (string)$response->getBody());
     }
@@ -52,7 +52,7 @@ class HomepageTest extends BaseTestCase {
      */
     public function testGetUserOK() {
         $handleNameOk = getenv('HANDLENAME_OK');
-        $response = $this->runApp('GET', '/histogram/'.$handleNameOk);
+        $response = $this->runApp('GET', '/histogram/'.$handleNameOk.'/');
         $this->assertEquals(200, $response->getStatusCode());
         $body = json_decode((string)$response->getBody(), true);
         $this->assertArrayHasKey('tweet per hour', $body);
@@ -63,7 +63,7 @@ class HomepageTest extends BaseTestCase {
      */
     public function testGetUserNotFound() {
         $handleNameNotFound = getenv('HANDLENAME_NOT_FOUND');
-        $response = $this->runApp('GET', '/histogram/'.$handleNameNotFound);
+        $response = $this->runApp('GET', '/histogram/'.$handleNameNotFound.'/');
         $this->assertEquals(404, $response->getStatusCode());
     }
 }

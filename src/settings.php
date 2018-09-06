@@ -11,8 +11,8 @@ if (file_exists(ROOT . '.env')) {
 
 return [
     'settings' => [
-        'displayErrorDetails' => getenv('APP_DEBUG') === 'true' ? true : false, // set to false in production
-        'addContentLengthHeader' => false, // Allow the web server to send the content-length header
+        'displayErrorDetails' => getenv('APP_DEBUG') === 'true' ? true : false,
+        'addContentLengthHeader' => false,
 
         // Renderer settings
         'renderer' => [
@@ -32,14 +32,5 @@ return [
         ],
         
         'cors' => null !== getenv('CORS_ALLOWED_ORIGINS') ? getenv('CORS_ALLOWED_ORIGINS') : '*',
-
-        // jwt settings
-        'jwt'  => [
-            'secret' => getenv('JWT_SECRET'),
-            'secure' => false,
-            "header" => "Authorization",
-            "regexp" => "/Token\s+(.*)$/i",
-            'passthrough' => ['OPTIONS']
-        ],
     ],
 ];

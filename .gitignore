@@ -2,4 +2,3 @@
 .env
 /logs/*
 !/logs/README.md
-public/tests

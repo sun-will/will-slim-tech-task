@@ -8,7 +8,7 @@ class TwitterService {
     private $data;
     private $connection;
 
-    public function __construct(){
+    public function __construct() {
         $this->connection = new TwitterOAuth(
             getenv('TWITTER_CONSUMER_KEY'), 
             getenv('TWITTER_CONSUMER_SECRET'), 
@@ -17,6 +17,13 @@ class TwitterService {
         );
     }
 
+    /**
+     * Fetch the tweets per username
+     *
+     * @param string $username
+     *
+     * @return wild
+     */
     public function fetchTweets(string $username) {
         return $this->connection->get(
             "statuses/user_timeline", 

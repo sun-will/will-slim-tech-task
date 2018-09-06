@@ -17,12 +17,6 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-// Jwt Middleware
-$container['jwt'] = function ($c) {
-    $jws_settings = $c->get('settings')['jwt'];
-    return new \Slim\Middleware\JwtAuthentication($jws_settings);
-};
-
 // Request Validator
 $container['validator'] = function ($c) {
     return new \App\Validation\Validator();

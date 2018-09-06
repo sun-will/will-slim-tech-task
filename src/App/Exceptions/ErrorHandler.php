@@ -10,13 +10,18 @@ use Slim\Handlers\NotFound;
 
 class ErrorHandler extends Error {
 
-    /** @inheritdoc */
-    public function __construct(bool $displayErrorDetails)
-    {
+    public function __construct(bool $displayErrorDetails) {
         parent::__construct($displayErrorDetails);
     }
 
-    /** @inheritdoc */
+    /**
+     * Invoke the errorhandler
+     *
+     * @param ServerRequestInterface $values
+     * @param ResponseInterface $response
+     *
+     * @return NotFound
+     */
     public function invoke(
         ServerRequestInterface $request, 
         ResponseInterface $response, 
